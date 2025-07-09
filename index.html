@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PickupBiz Software Pvt Ltd - JavaScript Array Methods MCQ Test</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .quiz-container { max-width: 800px; }
+        .question { margin-bottom: 1.5rem; }
+        .option { margin-left: 1.5rem; }
+        .submit-btn { transition: background-color 0.3s; }
+        .submit-btn:disabled { background-color: #d1d5db; cursor: not-allowed; }
+        .result-container { animation: fadeIn 0.5s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans min-h-screen flex items-center justify-center p-4">
+    <div class="quiz-container mx-auto bg-white rounded-xl shadow-lg p-8">
+        <h1 class="text-3xl font-bold text-center mb-8 text-gray-800">PickupBiz Software Pvt Ltd - JavaScript Array Methods MCQ Test</h1>
+        <div id="quiz" class="quiz-content"></div>
+        <div class="text-center">
+            <button id="submit" class="submit-btn bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 disabled:bg-gray-400" disabled>Submit</button>
+        </div>
+        <div id="result" class="result-container mt-8 hidden">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Results</h2>
+            <p id="score" class="text-lg text-gray-700 mb-4"></p>
+            <div id="answers" class="text-gray-600"></div>
+        </div>
+    </div>
+    <script>
+        const quizData = [
+            {
+                question: "What does the <code>push</code> method do?",
+                options: ["Removes the last element", "Adds elements to the end", "Removes the first element", "Reverses the array"],
+                answer: "b",
+                explanation: "<code>push</code> adds one or more elements to the end of an array and returns the new length."
+            },
+            {
+                question: "What is the return value of <code>[1, 2].push(3, 4)</code>?",
+                options: ["[1, 2, 3, 4]", "4", "[3, 4]", "undefined"],
+                answer: "b",
+                explanation: "<code>push</code> returns the new length of the array, which is 4 after adding 3 and 4."
+            },
+            {
+                question: "What does the <code>pop</code> method do?",
+                options: ["Adds an element to the end", "Removes the last element", "Removes the first element", "Returns the array length"],
+                answer: "b",
+                explanation: "<code>pop</code> removes and returns the last element of an array."
+            },
+            {
+                question: "What is the output of <code>let arr = [1, 2, 3]; console.log(arr.pop());</code>?",
+                options: ["3", "[1, 2]", "undefined", "2"],
+                answer: "a",
+                explanation: "<code>pop</code> removes and returns the last element, which is 3."
+            },
+            {
+                question: "What does the <code>shift</code> method do?",
+                options: ["Removes the last element", "Removes the first element", "Adds an element to the start", "Splits the array"],
+                answer: "b",
+                explanation: "<code>shift</code> removes and returns the first element of an array."
+            },
+            {
+                question: "What is the result of <code>let arr = [1, 2, 3]; arr.shift(); console.log(arr);</code>?",
+                options: ["[1, 2, 3]", "[2, 3]", "[1, 2]", "[]"],
+                answer: "b",
+                explanation: "<code>shift</code> removes the first element (1), leaving [2, 3]."
+            },
+            {
+                question: "What does the <code>unshift</code> method do?",
+                options: ["Removes the first element", "Adds elements to the start", "Removes the last element", "Returns a new array"],
+                answer: "b",
+                explanation: "<code>unshift</code> adds one or more elements to the start of an array and returns the new length."
+            },
+            {
+                question: "What is the return value of <code>[2, 3].unshift(0, 1)</code>?",
+                options: ["[0, 1, 2, 3]", "2", "4", "undefined"],
+                answer: "c",
+                explanation: "<code>unshift</code> returns the new length of the array, which is 4 after adding 0 and 1."
+            },
+            {
+                question: "What does <code>slice(1, 3)</code> do on <code>[0, 1, 2, 3, 4]</code>?",
+                options: ["Returns [1, 2, 3]", "Returns [1, 2]", "Modifies array to [1, 2, 3]", "Returns [0, 1, 2]"],
+                answer: "b",
+                explanation: "<code>slice(1, 3)</code> returns a new array with elements from index 1 to 2, i.e., [1, 2]."
+            },
+            {
+                question: "What is the effect of <code>splice(1, 2, 5)</code> on <code>[0, 1, 2, 3]</code>?",
+                options: ["Returns [1, 2], array is [0, 5, 3]", "Returns [0, 1], array is [2, 3]", "Returns [5], array is [0, 1, 5, 3]", "Throws an error"],
+                answer: "a",
+                explanation: "<code>splice(1, 2, 5)</code> removes 2 elements from index 1 and inserts 5, modifying the array to [0, 5, 3] and returning [1, 2]."
+            },
+            {
+                question: "What does <code>reduce((acc, curr) => acc + curr, 0)</code> do on <code>[1, 2, 3]</code>?",
+                options: ["Returns 6", "Returns [1, 2, 3]", "Returns 0", "Throws an error"],
+                answer: "a",
+                explanation: "<code>reduce</code> sums the elements with an initial value of 0, resulting in 1 + 2 + 3 = 6."
+            },
+            {
+                question: "What is the output of <code>let arr = [1, 2, 3]; arr.forEach(x => console.log(x * 2));</code>?",
+                options: ["2, 4, 6", "[2, 4, 6]", "undefined", "[1, 2, 3]"],
+                answer: "a",
+                explanation: "<code>forEach</code> executes the callback for each element, logging 2, 4, 6."
+            },
+            {
+                question: "What does the <code>map</code> method do?",
+                options: ["Modifies the array in place", "Returns a new array with transformed elements", "Removes elements", "Iterates without returning"],
+                answer: "b",
+                explanation: "<code>map</code> creates a new array with the results of calling a callback on each element."
+            },
+            {
+                question: "What is the result of <code>[1, 2, 3].map(x => x * 2)</code>?",
+                options: ["[1, 2, 3]", "[2, 4, 6]", "6", "undefined"],
+                answer: "b",
+                explanation: "<code>map</code> returns a new array with each element doubled: [2, 4, 6]."
+            },
+            {
+                question: "What does the <code>filter</code> method do?",
+                options: ["Transforms elements", "Returns elements that pass a test", "Removes the last element", "Sums the elements"],
+                answer: "b",
+                explanation: "<code>filter</code> creates a new array with elements that pass the callback's test."
+            },
+            {
+                question: "What is the result of <code>[1, 2, 3, 4].filter(x => x > 2)</code>?",
+                options: ["[1, 2]", "[3, 4]", "[2, 3, 4]", "[1, 2, 3, 4]"],
+                answer: "b",
+                explanation: "<code>filter</code> returns elements greater than 2: [3, 4]."
+            },
+            {
+                question: "What does the <code>find</code> method return?",
+                options: ["All matching elements", "The first matching element", "The index of the first match", "A boolean"],
+                answer: "b",
+                explanation: "<code>find</code> returns the first element that satisfies the callback or <code>undefined</code>."
+            },
+            {
+                question: "What is the output of <code>[1, 2, 3].find(x => x > 1)</code>?",
+                options: ["1", "2", "[2, 3]", "undefined"],
+                answer: "b",
+                explanation: "<code>find</code> returns the first element greater than 1, which is 2."
+            },
+            {
+                question: "What does the <code>some</code> method do?",
+                options: ["Checks if all elements pass a test", "Checks if at least one element passes a test", "Returns the first match", "Transforms elements"],
+                answer: "b",
+                explanation: "<code>some</code> returns <code>true</code> if at least one element passes the callback's test."
+            },
+            {
+                question: "What is the output of <code>[1, 2, 3].some(x => x > 2)</code>?",
+                options: ["true", "false", "3", "[3]"],
+                answer: "a",
+                explanation: "<code>some</code> returns <code>true</code> because 3 is greater than 2."
+            },
+            {
+                question: "What does the <code>every</code> method do?",
+                options: ["Returns the first match", "Checks if all elements pass a test", "Returns a new array", "Removes elements"],
+                answer: "b",
+                explanation: "<code>every</code> returns <code>true</code> if all elements pass the callback's test."
+            },
+            {
+                question: "What is the output of <code>[1, 2, 3].every(x => x > 0)</code>?",
+                options: ["true", "false", "[1, 2, 3]", "undefined"],
+                answer: "a",
+                explanation: "<code>every</code> returns <code>true</code> because all elements are greater than 0."
+            },
+            {
+                question: "What does the <code>concat</code> method do?",
+                options: ["Joins elements into a string", "Merges arrays", "Removes elements", "Sorts the array"],
+                answer: "b",
+                explanation: "<code>concat</code> creates a new array by merging the original array with others."
+            },
+            {
+                question: "What is the result of <code>[1, 2].concat([3, 4])</code>?",
+                options: ["[1, 2, 3, 4]", "[1, 2]", "[3, 4]", "1,2,3,4"],
+                answer: "a",
+                explanation: "<code>concat</code> merges the arrays into [1, 2, 3, 4]."
+            },
+            {
+                question: "What does the <code>includes</code> method do?",
+                options: ["Returns the index of an element", "Checks if an element exists", "Adds an element", "Removes an element"],
+                answer: "b",
+                explanation: "<code>includes</code> returns <code>true</code> if the array contains the specified element."
+            },
+            {
+                question: "What is the output of <code>[1, 2, 3].includes(2)</code>?",
+                options: ["true", "false", "2", "undefined"],
+                answer: "a",
+                explanation: "<code>includes</code> returns <code>true</code> because 2 is in the array."
+            },
+            {
+                question: "What does the <code>indexOf</code> method return?",
+                options: ["The element itself", "The first index of the element", "A new array", "A boolean"],
+                answer: "b",
+                explanation: "<code>indexOf</code> returns the first index of the specified element or -1 if not found."
+            },
+            {
+                question: "What is the output of <code>[1, 2, 2, 3].indexOf(2)</code>?",
+                options: ["1", "2", "-1", "[1, 2]"],
+                answer: "a",
+                explanation: "<code>indexOf</code> returns the first index of 2, which is 1."
+            },
+            {
+                question: "What does the <code>lastIndexOf</code> method do?",
+                options: ["Returns the first index", "Returns the last index", "Returns all indices", "Removes the last element"],
+                answer: "b",
+                explanation: "<code>lastIndexOf</code> returns the last index of the specified element or -1 if not found."
+            },
+            {
+                question: "What is the output of <code>[1, 2, 2, 3].lastIndexOf(2)</code>?",
+                options: ["1", "2", "-1", "3"],
+                answer: "b",
+                explanation: "<code>lastIndexOf</code> returns the last index of 2, which is 2."
+            },
+            {
+                question: "What does the <code>reverse</code> method do?",
+                options: ["Sorts the array", "Reverses the array in place", "Creates a new reversed array", "Removes elements"],
+                answer: "b",
+                explanation: "<code>reverse</code> reverses the array in place and returns the modified array."
+            },
+            {
+                question: "What is the result of <code>let arr = [1, 2, 3]; arr.reverse(); console.log(arr);</code>?",
+                options: ["[1, 2, 3]", "[3, 2, 1]", "3", "undefined"],
+                answer: "b",
+                explanation: "<code>reverse</code> modifies the array to [3, 2, 1]."
+            },
+            {
+                question: "What does the <code>sort</code> method do without a callback?",
+                options: ["Sorts numerically", "Sorts lexicographically", "Reverses the array", "Removes duplicates"],
+                answer: "b",
+                explanation: "<code>sort</code> sorts elements as strings lexicographically by default."
+            },
+            {
+                question: "What is the result of <code>[10, 2, 3].sort()</code>?",
+                options: ["[2, 3, 10]", "[10, 2, 3]", "[2, 10, 3]", "[10, 3, 2]"],
+                answer: "c",
+                explanation: "<code>sort</code> sorts lexicographically, resulting in [2, 10, 3] as '10' comes before '2' in string order."
+            },
+            {
+                question: "What does the <code>join</code> method do?",
+                options: ["Merges arrays", "Joins elements into a string", "Splits a string", "Removes elements"],
+                answer: "b",
+                explanation: "<code>join</code> creates a string from array elements with a specified separator."
+            },
+            {
+                question: "What is the output of <code>[1, 2, 3].join(', ')</code>?",
+                options: ["1,2,3", "1, 2, 3", "[1, 2, 3]", "123"],
+                answer: "b",
+                explanation: "<code>join(', ')</code> creates a string with elements separated by ', ': '1, 2, 3'."
+            },
+            {
+                question: "Scenario: In <code>let arr = [2, 5, 3];</code>, add 10 to the end for DOM display. Which method?",
+                options: ["pop()", "push(10)", "unshift(10)", "splice(10)"],
+                answer: "b",
+                explanation: "<code>push(10)</code> adds 10 to the end, ideal for updating a DOM display."
+            },
+            {
+                question: "Scenario: Remove the last element from <code>[2, 5, 3, 7]</code> before summing. What is the sum?",
+                options: ["17", "15", "10", "12"],
+                answer: "c",
+                explanation: "<code>arr.pop()</code> removes 7, leaving [2, 5, 3]. The sum is 2 + 5 + 3 = 10."
+            },
+            {
+                question: "Scenario: Extract [5, 3] from <code>[2, 5, 3, 7]</code> without modifying the array. Which method?",
+                options: ["splice(1, 2)", "slice(1, 3)", "shift(1)", "pop(2)"],
+                answer: "b",
+                explanation: "<code>slice(1, 3)</code> returns [5, 3] without modifying the original array."
+            },
+            {
+                question: "Scenario: Replace 5 with 10 in <code>[2, 5, 3]</code>. What is the new array?",
+                options: ["[2, 10, 3]", "[2, 5, 10]", "[10, 5, 3]", "[2, 10]"],
+                answer: "a",
+                explanation: "<code>arr.splice(1, 1, 10)</code> removes 5 and inserts 10, resulting in [2, 10, 3]."
+            },
+            {
+                question: "Scenario: Double each element in <code>[1, 2, 3]</code> for DOM display. Which method?",
+                options: ["reduce", "forEach", "map", "splice"],
+                answer: "c",
+                explanation: "<code>map(x => x * 2)</code> returns a new array [2, 4, 6], suitable for DOM display."
+            },
+            {
+                question: "Scenario: Filter numbers > 5 from <code>[2, 5, 3, 7, 9]</code> for a result display. What is the result?",
+                options: ["[7, 9]", "[2, 5, 3]", "[5, 7, 9]", "[2, 3]"],
+                answer: "a",
+                explanation: "<code>filter(x => x > 5)</code> returns [7, 9]."
+            },
+            {
+                question: "Scenario: Find the first number > 5 in <code>[2, 5, 7, 9]</code>. What is the result?",
+                options: ["7", "9", "[7, 9]", "undefined"],
+                answer: "a",
+                explanation: "<code>find(x => x > 5)</code> returns the first matching element, 7."
+            },
+            {
+                question: "Scenario: Check if <code>[1, 2, 3]</code> contains a number > 2. Which method?",
+                options: ["every", "some", "find", "filter"],
+                answer: "b",
+                explanation: "<code>some(x => x > 2)</code> returns <code>true</code> if any element is greater than 2."
+            },
+            {
+                question: "Scenario: Verify all numbers in <code>[1, 2, 3]</code> are positive. Which method?",
+                options: ["some", "every", "find", "map"],
+                answer: "b",
+                explanation: "<code>every(x => x > 0)</code> checks if all elements are positive, returning <code>true</code>."
+            },
+            {
+                question: "Scenario: Merge <code>[1, 2]</code> with <code>[3, 4]</code> for a DOM update. Which method?",
+                options: ["join", "concat", "push", "splice"],
+                answer: "b",
+                explanation: "<code>concat</code> merges arrays into a new array [1, 2, 3, 4] for display."
+            },
+            {
+                question: "Scenario: Check if 5 exists in <code>[2, 5, 3]</code>. Which method?",
+                options: ["indexOf", "includes", "find", "some"],
+                answer: "b",
+                explanation: "<code>includes(5)</code> returns <code>true</code> if 5 is in the array."
+            },
+            {
+                question: "Scenario: Find the index of the last 2 in <code>[1, 2, 2, 3]</code>. Which method?",
+                options: ["indexOf", "lastIndexOf", "find", "filter"],
+                answer: "b",
+                explanation: "<code>lastIndexOf(2)</code> returns the last index of 2, which is 2."
+            },
+            {
+                question: "Scenario: Sort <code>[10, 2, 3]</code> numerically. What is the result?",
+                options: ["[2, 3, 10]", "[10, 2, 3]", "[2, 10, 3]", "[10, 3, 2]"],
+                answer: "a",
+                explanation: "<code>sort((a, b) => a - b)</code> sorts numerically, resulting in [2, 3, 10]."
+            },
+            {
+                question: "Scenario: Convert <code>[1, 2, 3]</code> to '1, 2, 3' for DOM display. Which method?",
+                options: ["concat", "join", "slice", "map"],
+                answer: "b",
+                explanation: "<code>join(', ')</code> creates the string '1, 2, 3' for DOM display."
+            },
+            {
+                question: "Scenario: In <code>let arr = [2, 5, 3, 7];</code>, add 1 to the start, remove the last, and sum. What is the sum?",
+                options: ["10", "17", "15", "12"],
+                answer: "a",
+                explanation: "<code>arr.unshift(1)</code> makes [1, 2, 5, 3, 7], <code>arr.pop()</code> makes [1, 2, 5, 3], and <code>reduce</code> sums to 1 + 2 + 5 + 3 = 10."
+            }
+        ];
+
+        const quizContainer = document.getElementById('quiz');
+        const submitBtn = document.getElementById('submit');
+        const resultDiv = document.getElementById('result');
+        const scoreText = document.getElementById('score');
+        const answersDiv = document.getElementById('answers');
+
+        const renderQuiz = () => {
+            quizContainer.innerHTML = quizData.map((q, index) => `
+                <div class="question">
+                    <p class="font-semibold text-gray-800">${index + 1}. ${q.question}</p>
+                    ${q.options.map((option, i) => `
+                        <label class="option block my-2">
+                            <input type="radio" name="q${index + 1}" value="${String.fromCharCode(97 + i)}" class="mr-2">
+                            ${option}
+                        </label>
+                    `).join('')}
+                </div>
+            `).join('');
+            checkAllAnswered();
+        };
+
+        const checkAllAnswered = () => {
+            const allQuestions = document.querySelectorAll('input[type="radio"]:checked').length;
+            submitBtn.disabled = allQuestions < quizData.length;
+        };
+
+        const displayResults = () => {
+            let score = 0;
+            answersDiv.innerHTML = '';
+
+            quizData.forEach((q, index) => {
+                const qIndex = index + 1;
+                const selected = document.querySelector(`input[name="q${qIndex}"]:checked`);
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'question';
+                questionDiv.innerHTML = `<p class="font-semibold text-gray-800">${qIndex}. ${q.question}</p>`;
+
+                if (selected && selected.value === q.answer) {
+                    score++;
+                    questionDiv.innerHTML += `<p class="text-green-600">Correct! ${q.explanation}</p>`;
+                } else {
+                    const userAnswer = selected ? selected.nextSibling.textContent.trim() : 'No answer selected';
+                    const correctAnswer = q.options[q.answer.charCodeAt(0) - 97];
+                    questionDiv.innerHTML += `<p class="text-red-600">Incorrect. Your answer: ${userAnswer}. Correct answer: ${correctAnswer}. ${q.explanation}</p>`;
+                }
+                answersDiv.appendChild(questionDiv);
+            });
+
+            scoreText.textContent = `Your score: ${score}/${quizData.length}`;
+            resultDiv.classList.remove('hidden');
+        };
+
+        quizContainer.addEventListener('change', checkAllAnswered);
+        submitBtn.addEventListener('click', displayResults);
+        renderQuiz();
+    </script>
+</body>
+</html>
